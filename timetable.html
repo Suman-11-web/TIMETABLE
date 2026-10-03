@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Class Timetable | Premium</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+:root {
+  --bg: #080d18;
+  --card: #111a2b;
+  --card-light: #17243a;
+  --gold: #d6b46a;
+  --gold-light: #f3d99a;
+  --text: #f5f5f5;
+  --muted: #91a0b8;
+  --border: rgba(214,180,106,.2);
+  --green: #55c99a;
+  --red: #f07878;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 35px 16px;
+  background:
+    radial-gradient(circle at top left, #172844 0%, transparent 40%),
+    radial-gradient(circle at bottom right, #302719 0%, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
+
+
+
+.container {
+  max-width: 1250px;
+  margin: auto;
+}
+
+
+
+.header {
+  text-align: center;
+  margin-bottom: 35px;
+  animation: fadeDown .8s ease;
+}
+
+.logo {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 6vw, 58px);
+  color: var(--gold-light);
+  margin-bottom: 12px;
+}
+
+.header p {
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+
+
+.line {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 20px auto;
+}
+
+
+
+.btn-box {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.btn-p {
+  background: linear-gradient(135deg, #e7cb85, #b58c42);
+  color: #17120a;
+  border: 1px solid var(--gold);
+}
+
+.btn-p:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(214,180,106,.25);
+}
+
+.btn-s {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid rgba(240,120,120,.5);
+}
+
+.btn-s:hover {
+  background: rgba(240,120,120,.12);
+  transform: translateY(-3px);
+}
+
+
+
+#main {
+  display: none;
+  animation: fadeUp .6s ease;
+}
+
+.table-card {
+  background: rgba(17,26,43,.88);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 25px 70px rgba(0,0,0,.35);
+  overflow: hidden;
+}
+
+.table-heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.table-heading h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+
+.table-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: separate;
+  border-spacing: 5px;
+  text-align: center;
+}
+
+th, td {
+  padding: 17px 12px;
+  border-radius: 7px;
+  font-size: 12px;
+  text-transform: uppercase;
+  transition: .25s ease;
+}
+
+thead th {
+  background: #1d2a40;
+  color: var(--gold-light);
+  font-weight: 700;
+  letter-spacing: .7px;
+  border: 1px solid var(--border);
+}
+
+thead th:first-child {
+  background: linear-gradient(135deg, #d6b46a, #a77c35);
+  color: #17120a;
+}
+
+td {
+  background: #17243a;
+  color: #dce4f1;
+  border: 1px solid rgba(255,255,255,.04);
+  font-weight: 500;
+}
+
+tbody tr:hover td {
+  background: #22334f;
+  border-color: var(--border);
+}
+
+.day {
+  background: #202e45;
+  color: var(--gold-light);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.lab {
+  background: linear-gradient(135deg, #493b28, #30291e);
+  color: var(--gold-light);
+  border: 1px solid rgba(214,180,106,.45);
+  font-weight: 800;
+}
+
+.lunch {
+  background: linear-gradient(180deg, #263c38, #1b302d);
+  color: var(--green);
+  border: 1px solid rgba(85,201,154,.35);
+  font-weight: 800;
+  letter-spacing: 2px;
+  writing-mode: vertical-rl;
+}
+
+.break {
+  background: #222c3c;
+  color: #aab8cc;
+}
+
+
+
+.today .day {
+  background: linear-gradient(135deg, #f3d99a, #b58c42);
+  color: #17120a;
+  box-shadow: 0 0 18px rgba(214,180,106,.2);
+}
+
+.today td {
+  border-top: 1px solid rgba(214,180,106,.35);
+  border-bottom: 1px solid rgba(214,180,106,.35);
+}
+
+
+
+.footer {
+  text-align: center;
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.footer span {
+  color: var(--gold);
+}
+
+
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+@media(max-width: 600px) {
+  body {
+    padding: 25px 12px;
+  }
+
+  .table-card {
+    padding: 14px 10px;
+  }
+
+  .table-heading h2 {
+    font-size: 25px;
+  }
+
+  button {
+    padding: 11px 17px;
+    font-size: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <header class="header">
+    <div class="logo">Academic Schedule · 2026</div>
+    <h1>Class Time Table</h1>
+    <div class="line"></div>
+    <p>Plan Your Day · Focus Your Goals</p>
+  </header>
+  <div class="btn-box">
+    <button class="btn-p" onclick="showTable()">
+      ✦ Show Timetable
+    </button>
+    <button class="btn-s" onclick="hideTable()">
+      ✕ Hide Timetable
+    </button>
+  </div>
+  <main id="main">
+    <div class="table-card">
+      <div class="table-heading">
+        <h2>Weekly Schedule</h2>
+        <p>Monday — Saturday</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="8">TIME TABLE</th>
+            </tr>
+            <tr>
+              <th>Day</th>
+              <th>9:30–10:30</th>
+              <th>10:30–11:30</th>
+              <th>11:30–12:30</th>
+              <th>12:30–1:30</th>
+              <th>1:30–2:15</th>
+              <th>2:15–3:15</th>
+              <th>3:15–4:15</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-day="1">
+              <td class="day">Monday</td>
+              <td>Kannada</td>
+              <td>C++</td>
+              <td class="lab" colspan="2">DCO Lab</td>
+              <td class="lunch" rowspan="6">Lunch</td>
+              <td>MSC</td>
+              <td>DCO (L) - VL</td>
+            </tr>
+            <tr data-day="2">
+              <td class="day">Tuesday</td>
+              <td>S - GG (SH)</td>
+              <td>Kannada</td>
+              <td>C++ (L) - JN</td>
+              <td>MSC - RM</td>
+              <td>ENG - APA</td>
+              <td>DCO - VL</td>
+            </tr>
+            <tr data-day="3">
+              <td class="day">Wednesday</td>
+              <td>C++ (L) - JN</td>
+              <td>DCO - VL</td>
+              <td class="lab" colspan="2">C++ Lab</td>
+              <td>ENG - APA</td>
+              <td>EVS - NA</td>
+            </tr>
+            <tr data-day="4">
+              <td class="day">Thursday</td>
+              <td>MSC (L) - VL</td>
+              <td>C++ - JN</td>
+              <td>Kannada</td>
+              <td>MSC - RM</td>
+              <td>EVS - NA</td>
+              <td>DCO - VL</td>
+            </tr>
+            <tr data-day="5">
+              <td class="day">Friday</td>
+              <td>-</td>
+              <td>MSC (VL)</td>
+              <td>C++ - JN</td>
+              <td>ENG - APA</td>
+              <td class="lab" colspan="2">MSC Lab</td>
+            </tr>
+            <tr data-day="6">
+              <td class="day">Saturday</td>
+              <td>-</td>
+              <td>DCO (L) - VL</td>
+              <td>ENG - APA</td>
+              <td>Kannada</td>
+              <td class="break">—</td>
+              <td class="break">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer">
+        DESIGNED WITH <span>✦</span> FOR YOUR ACADEMIC JOURNEY
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+function showTable() {
+  document.getElementById("main").style.display = "block";
+  highlightToday();
+}
+
+function hideTable() {
+  const main = document.getElementById("main");
+  if (main.style.display === "block") {
+    main.style.display = "none";
+  } else {
+    alert("Timetable is already hidden.");
+  }
+}
+
+function highlightToday() {
+  const today = new Date().getDay();
+  document.querySelectorAll("tbody tr").forEach(row => {
+    row.classList.remove("today");
+    if (Number(row.dataset.day) === today) {
+      row.classList.add("today");
+    }
+  });
+}
+</script>
+</body>
+</html>
